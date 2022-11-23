@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_flutter_lab/main.dart';
 import 'package:pbp_flutter_lab/form.dart';
 import 'package:pbp_flutter_lab/data.dart';
+import 'package:pbp_flutter_lab/mywatchlist_data.dart';
 
 class DrawerWidget extends StatelessWidget {
   @override
@@ -41,6 +42,21 @@ class DrawerWidget extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const MyBudgetData()),
+              );
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const MyFormPage()),
+              // );
+            },
+          ),
+          ListTile(
+            title: const Text('My Watch List'),
+            onTap: () {
+              // Route menu ke halaman form
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MyWatchListPage()),
               );
               // Navigator.pushReplacement(
               //   context,
