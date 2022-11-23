@@ -148,11 +148,6 @@ class _DetailPageState extends State<DetailPage> {
             width: 1000,
             child: TextButton(
               onPressed: () {
-                // Navigator.pushReplacement(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const MyWatchListPage()),
-                // );
                 Navigator.pop(context);
               },
               child: Text(

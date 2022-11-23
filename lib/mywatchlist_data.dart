@@ -4,6 +4,7 @@ import 'package:pbp_flutter_lab/mywatchlist.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_flutter_lab/drawer.dart';
 import 'package:pbp_flutter_lab/mywatchlist_detail.dart';
+import 'package:pbp_flutter_lab/fetch_mywatchlist.dart';
 
 class MyWatchListPage extends StatefulWidget {
   const MyWatchListPage({Key? key}) : super(key: key);
@@ -14,28 +15,10 @@ class MyWatchListPage extends StatefulWidget {
 
 class _MyWatchListPageState extends State<MyWatchListPage> {
   bool _isInit = true;
-  Future<List<Mywatchlist>> fetchToDo() async {
-    var url = Uri.parse('http://initugaspbp.herokuapp.com/mywatchlist/json/');
-    var response = await http.get(
-      url,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    );
 
-    // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // melakukan konversi data json menjadi object ToDo
-    List<Mywatchlist> listToDo = [];
-    for (var d in data) {
-      if (d != null) {
-        listToDo.add(Mywatchlist.fromJson(d));
-      }
-    }
+  changeIsInit() {
     _isInit = false;
-    return listToDo;
+    return fetchMyWatchList();
   }
 
   @override
@@ -55,7 +38,7 @@ class _MyWatchListPageState extends State<MyWatchListPage> {
         ),
         drawer: DrawerWidget(),
         body: FutureBuilder(
-            future: _isInit ? fetchToDo() : null,
+            future: _isInit ? changeIsInit() : null,
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
@@ -129,10 +112,6 @@ class _MyWatchListPageState extends State<MyWatchListPage> {
                               builder: (context) => DetailPage(
                                   watchListObject: snapshot.data![index])),
                         );
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => const MyFormPage()),
-                        // );
                       },
                     ),
                   );
